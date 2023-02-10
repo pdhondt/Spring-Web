@@ -1,0 +1,105 @@
+body {
+    background-color: #FFFFDE;
+    font-family: sans-serif;
+}
+
+dd, dt {
+    margin-left: 0;
+}
+
+dt {
+    margin-top: 0.5em;
+}
+
+dd {
+    font-weight: bold;
+}
+
+.fout {
+    background-color: red;
+    color:white;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+label {
+    cursor: pointer;
+}
+
+input, button {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    margin-top: 0.2em;
+}
+
+nav ul {
+    background-color: #3e8e41;
+    padding: 0.4em 0;
+}
+
+nav li {
+    display: inline;
+}
+
+nav li a {
+    color: white;
+    font-weight: bold;
+    padding-left: 0.5em;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+nav li a:hover {
+    color: #F7FFCC;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    outline: 0;
+    padding: 8px 16px;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+button:active, button:hover {
+    background-color: #3ecc41;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+table,
+td,
+th {
+    border: 1px solid silver;
+    border-collapse: collapse;
+    padding: 5px 5px;
+}
+
+th {
+    color: white;
+    background-color: #4CAF50;
+}
+
+td {
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+
+tr:nth-child(even) {
+    background-color: #FAFABA;
+}
+
+tr:nth-child(odd) {
+    background-color: #FAFAFA;
+}
