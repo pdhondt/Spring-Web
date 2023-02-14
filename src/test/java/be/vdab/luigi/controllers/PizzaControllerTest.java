@@ -45,4 +45,11 @@ class PizzaControllerTest extends AbstractTransactionalJUnit4SpringContextTests 
         mockMvc.perform(get("/pizzas/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
+    @Test
+    void findAll() throws Exception {
+        mockMvc.perform(get("/pizzas"))
+                .andExpectAll(
+                        status().isOk(),
+                        jsonPath("length()").value(countRowsInTable(PIZZAS)));
+    }
 }
