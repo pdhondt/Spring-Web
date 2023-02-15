@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza's met woord in naam</title>
+    <script src="js/naambevat.js" type="module" defer></script>
+    <link rel="icon" href="images/luigi.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/luigi.css">
+</head>
+<body>
+    <div><a href="index.html">Menu</a></div>
+    <h1>Pizza's met woord in naam</h1>
+    <label>Woord:
+        <span id="woordFout" class="fout" hidden>Verplicht</span>
+        <input id="woord" required autofocus>
+    </label>
+    <button id="zoek">Zoeken</button>
+    <table id="pizzasTable" hidden>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>naam</th>
+                <th>prijs</th>
+            </tr>
+        </thead>
+        <tbody id="pizzasBody">
+        </tbody>
+    </table>
+    <div id="storing" class="fout" hidden>Storing, contacteer helpdesk.</div>
+</body>
+</html>

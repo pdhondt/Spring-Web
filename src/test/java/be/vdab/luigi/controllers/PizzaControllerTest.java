@@ -52,4 +52,23 @@ class PizzaControllerTest extends AbstractTransactionalJUnit4SpringContextTests 
                         status().isOk(),
                         jsonPath("length()").value(countRowsInTable(PIZZAS)));
     }
+    @Test
+    void findByNaamBevat() throws Exception {
+        mockMvc.perform(get("/pizzas")
+                .param("naamBevat", "test"))
+                .andExpectAll(
+                        status().isOk(),
+                        jsonPath("length()").value(
+                                countRowsInTableWhere(PIZZAS, "naam like '%test%'")));
+    }
+    @Test
+    void findByPrijsBetween() throws Exception {
+        mockMvc.perform(get("/pizzas")
+                .param("vanPrijs", "10")
+                .param("totPrijs", "20"))
+                .andExpectAll(
+                        status().isOk(),
+                        jsonPath("length()").value(
+                                countRowsInTableWhere(PIZZAS, "prijs between 10 and 20")));
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +48,23 @@ public class PizzaRepository {
                 order by naam
                 """;
         return template.query(sql, pizzaMapper);
+    }
+    public List<Pizza> findByNaamBevat(String woord) {
+        var sql = """
+                select id, naam, prijs, winst
+                from pizzas
+                where naam like ?
+                order by naam
+                """;
+        return template.query(sql, pizzaMapper, "%" + woord + "%");
+    }
+    public List<Pizza> findByPrijsTussen(BigDecimal van, BigDecimal tot) {
+        var sql = """
+                select id, naam, prijs, winst
+                from pizzas
+                where prijs between ? and ?
+                order by prijs
+                """;
+        return template.query(sql, pizzaMapper, van, tot);
     }
 }
