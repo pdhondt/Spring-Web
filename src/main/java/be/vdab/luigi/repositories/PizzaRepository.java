@@ -4,9 +4,11 @@ import be.vdab.luigi.domain.Pizza;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,5 +75,21 @@ public class PizzaRepository {
                 where id = ?
                 """;
         template.update(sql, id);
+    }
+    public long create(Pizza pizza) {
+        var sql = """
+                insert into pizzas(naam, prijs, winst)
+                values (?, ?, ?)
+                """;
+        var keyHolder = new GeneratedKeyHolder();
+        template.update(connection -> {
+            var statement = connection.prepareStatement(sql,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, pizza.getNaam());
+            statement.setBigDecimal(2, pizza.getPrijs());
+            statement.setBigDecimal(3, pizza.getWinst());
+            return statement;
+        }, keyHolder);
+        return keyHolder.getKey().longValue();
     }
 }

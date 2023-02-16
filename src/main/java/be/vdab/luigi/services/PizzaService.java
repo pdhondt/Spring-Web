@@ -1,6 +1,7 @@
 package be.vdab.luigi.services;
 
 import be.vdab.luigi.domain.Pizza;
+import be.vdab.luigi.dto.NieuwePizza;
 import be.vdab.luigi.repositories.PizzaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,5 +38,11 @@ public class PizzaService {
     @Transactional
     public void delete(long id) {
         pizzaRepository.delete(id);
+    }
+    @Transactional
+    public long create(NieuwePizza nieuwePizza) {
+        var winst = nieuwePizza.prijs().multiply(BigDecimal.valueOf(0.1));
+        var pizza = new Pizza(nieuwePizza.naam(), nieuwePizza.prijs(), winst);
+        return pizzaRepository.create(pizza);
     }
 }
