@@ -34,4 +34,8 @@ public class PizzaService {
     public List<Pizza> findByPrijsTussen(BigDecimal van, BigDecimal tot) {
         return pizzaRepository.findByPrijsTussen(van, tot);
     }
+    @Transactional
+    public void delete(long id) {
+        pizzaRepository.delete(id);
+    }
 }

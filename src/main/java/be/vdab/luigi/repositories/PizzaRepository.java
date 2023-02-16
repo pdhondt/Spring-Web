@@ -67,4 +67,11 @@ public class PizzaRepository {
                 """;
         return template.query(sql, pizzaMapper, van, tot);
     }
+    public void delete(long id) {
+        var sql = """
+                delete from pizzas
+                where id = ?
+                """;
+        template.update(sql, id);
+    }
 }
