@@ -8,22 +8,27 @@
     <link rel="stylesheet" href="css/luigi.css">
 </head>
 <body>
-  <div><a href="index.html">Menu</a></div>
-  <h1>Pizza</h1>
-    <label>Id:
-      <span id="zoekIdFout" class="fout" hidden>Verplicht positief getal</span>
-      <input id="zoekId" required type="number" min="1" autofocus>
-    </label>
-    <button id="zoek">Zoek</button>
-    <div id="pizza" hidden>
-      <dl>
+<div><a href="index.html">Menu</a></div>
+<h1>Pizza</h1>
+<label>Id:
+    <span id="zoekIdFout" class="fout" hidden>Verplicht positief getal</span>
+    <input id="zoekId" required type="number" min="1" autofocus>
+</label>
+<button id="zoek">Zoek</button>
+<div id="pizza" hidden>
+    <dl>
         <dt>Naam:</dt>
         <dd id="naam"></dd>
         <dt>Prijs:</dt>
         <dd id="prijs"></dd>
-      </dl>
-    </div>
-    <div id="nietGevonden" class="fout" hidden>Pizza niet gevonden.</div>
-    <div id="storing" class="fout" hidden>Storing, contacteer helpdesk.</div>
+    </dl>
+    <label>Nieuwe prijs:
+        <span id="nieuwePrijsFout" class="fout" hidden>Verplicht positief getal.</span>
+        <input id="nieuwePrijs" required type="number" min="0" step="0.01">
+    </label>
+    <button id="bewaar">Bewaar</button>
+</div>
+<div id="nietGevonden" class="fout" hidden>Pizza niet gevonden.</div>
+<div id="storing" class="fout" hidden>Storing, contacteer helpdesk.</div>
 </body>
 </html>

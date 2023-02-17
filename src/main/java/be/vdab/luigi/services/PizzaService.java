@@ -1,7 +1,9 @@
 package be.vdab.luigi.services;
 
 import be.vdab.luigi.domain.Pizza;
+import be.vdab.luigi.domain.PizzaPrijs;
 import be.vdab.luigi.dto.NieuwePizza;
+import be.vdab.luigi.repositories.PizzaPrijsRepository;
 import be.vdab.luigi.repositories.PizzaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class PizzaService {
     private final PizzaRepository pizzaRepository;
+    private final PizzaPrijsRepository pizzaPrijsRepository;
 
-    public PizzaService(PizzaRepository pizzaRepository) {
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPrijsRepository pizzaPrijsRepository) {
         this.pizzaRepository = pizzaRepository;
+        this.pizzaPrijsRepository = pizzaPrijsRepository;
     }
 
     public long findAantal() {
@@ -44,5 +48,10 @@ public class PizzaService {
         var winst = nieuwePizza.prijs().multiply(BigDecimal.valueOf(0.1));
         var pizza = new Pizza(nieuwePizza.naam(), nieuwePizza.prijs(), winst);
         return pizzaRepository.create(pizza);
+    }
+    @Transactional
+    public void updatePrijs(PizzaPrijs pizzaPrijs) {
+        pizzaRepository.updatePrijs(pizzaPrijs.getPizzaId(), pizzaPrijs.getPrijs());
+        pizzaPrijsRepository.create(pizzaPrijs);
     }
 }
