@@ -63,3 +63,8 @@ async function updatePrijs(nieuwePrijs) {
         toon("storing");
     }
 }
+
+byId("prijzen").onclick = function () {
+    const idEnNaam = {id: byId("zoekId").value, naam: byId("naam").innerText};
+    sessionStorage.setItem("idEnNaam", JSON.stringify(idEnNaam));
+}

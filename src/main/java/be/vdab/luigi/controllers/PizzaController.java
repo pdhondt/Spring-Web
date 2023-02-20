@@ -11,6 +11,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 @RestController
@@ -26,6 +27,11 @@ class PizzaController {
         }
     }
     private record PrijsWijziging(@NotNull @PositiveOrZero BigDecimal prijs) {}
+    private record PrijsVanaf(BigDecimal prijs, LocalDateTime vanaf) {
+        PrijsVanaf(PizzaPrijs pizzaPrijs) {
+            this(pizzaPrijs.getPrijs(), pizzaPrijs.getVanaf());
+        }
+    }
 
     @GetMapping("pizzas/aantal")
     long findAantal() {
@@ -68,5 +74,11 @@ class PizzaController {
     void updatePrijs(@PathVariable long id,
                      @RequestBody @Valid PrijsWijziging wijziging) {
         pizzaService.updatePrijs(new PizzaPrijs(wijziging.prijs, id));
+    }
+    @GetMapping("pizzas/{id}/prijzen")
+    Stream<PrijsVanaf> findPrijzen(@PathVariable long id) {
+        return pizzaService.findPrijzen(id)
+                .stream()
+                .map(pizzaPrijs -> new PrijsVanaf(pizzaPrijs));
     }
 }
