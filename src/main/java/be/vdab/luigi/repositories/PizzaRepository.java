@@ -2,6 +2,8 @@ package be.vdab.luigi.repositories;
 
 import be.vdab.luigi.domain.Pizza;
 import be.vdab.luigi.exceptions.PizzaNietGevondenException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Repository
 public class PizzaRepository {
     private final JdbcTemplate template;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final RowMapper<Pizza> pizzaMapper = (rs, rowNum) ->
             new Pizza(rs.getLong("id"), rs.getString("naam"),
                     rs.getBigDecimal("prijs"), rs.getBigDecimal("winst"));
@@ -100,6 +103,7 @@ public class PizzaRepository {
                 where id = ?
                 """;
         if (template.update(sql, prijs, id) == 0) {
+            logger.info("update poging van onbestaande pizza {}", id);
             throw new PizzaNietGevondenException(id);
         }
     }
