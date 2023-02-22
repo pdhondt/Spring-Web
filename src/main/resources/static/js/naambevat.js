@@ -5,7 +5,7 @@ byId("zoek").onclick = async function () {
     verbergPizzasEnFouten();
     const woordInput = byId("woord");
     if (woordInput.checkValidity()) {
-        findByWoord(woordInput.value);
+        await findByWoord(woordInput.value);
     } else {
         toon("woordFout");
         woordInput.focus();

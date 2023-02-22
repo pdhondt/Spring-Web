@@ -19,7 +19,7 @@ byId("toevoegen").onclick = async function () {
         naam: naamInput.value,
         prijs: prijsInput.value
     }
-    voegToe(pizza);
+    await voegToe(pizza);
 }
 
 function verbergFouten() {

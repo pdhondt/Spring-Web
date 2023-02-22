@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("pizzas")
 class PizzaController {
     private final PizzaService pizzaService;
 
@@ -33,49 +34,49 @@ class PizzaController {
         }
     }
 
-    @GetMapping("pizzas/aantal")
+    @GetMapping("aantal")
     long findAantal() {
         return pizzaService.findAantal();
     }
-    @GetMapping("pizzas/{id}")
+    @GetMapping("{id}")
     IdNaamPrijs findById(@PathVariable long id) {
         return pizzaService.findById(id)
                 .map(pizza -> new IdNaamPrijs(pizza))
                 .orElseThrow(() -> new PizzaNietGevondenException(id));
     }
-    @GetMapping("pizzas")
+    @GetMapping
     Stream<IdNaamPrijs> findAll() {
         return pizzaService.findAll()
                 .stream()
                 .map(pizza -> new IdNaamPrijs(pizza));
     }
-    @GetMapping(value = "pizzas", params = "naamBevat")
+    @GetMapping(params = "naamBevat")
     Stream<IdNaamPrijs> findByNaamBevat(String naamBevat) {
         return pizzaService.findByNaamBevat(naamBevat)
                 .stream()
                 .map(pizza -> new IdNaamPrijs(pizza));
     }
-    @GetMapping(value = "pizzas", params = {"vanPrijs", "totPrijs"})
+    @GetMapping(params = {"vanPrijs", "totPrijs"})
     Stream<IdNaamPrijs> findByPrijsTussen(BigDecimal vanPrijs, BigDecimal totPrijs) {
         return pizzaService.findByPrijsTussen(vanPrijs, totPrijs)
                 .stream()
                 .map(pizza -> new IdNaamPrijs(pizza));
     }
-    @DeleteMapping("pizzas/{id}")
+    @DeleteMapping("{id}")
     void delete(@PathVariable long id) {
         pizzaService.delete(id);
     }
-    @PostMapping("pizzas")
+    @PostMapping
     long create(@RequestBody @Valid NieuwePizza nieuwePizza) {
         var id = pizzaService.create(nieuwePizza);
         return id;
     }
-    @PatchMapping("pizzas/{id}/prijs")
+    @PatchMapping("{id}/prijs")
     void updatePrijs(@PathVariable long id,
                      @RequestBody @Valid PrijsWijziging wijziging) {
         pizzaService.updatePrijs(new PizzaPrijs(wijziging.prijs, id));
     }
-    @GetMapping("pizzas/{id}/prijzen")
+    @GetMapping("{id}/prijzen")
     Stream<PrijsVanaf> findPrijzen(@PathVariable long id) {
         return pizzaService.findPrijzen(id)
                 .stream()

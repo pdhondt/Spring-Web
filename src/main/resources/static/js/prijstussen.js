@@ -15,7 +15,7 @@ byId("zoek").onclick = async function () {
         totInput.focus();
         return;
     }
-    findByPrijsBetween(vanInput.value, totInput.value);
+    await findByPrijsBetween(vanInput.value, totInput.value);
 }
 
 function verbergPizzasEnFouten() {

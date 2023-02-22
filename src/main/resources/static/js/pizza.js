@@ -5,7 +5,7 @@ byId("zoek").onclick = async function () {
     verbergPizzaEnFouten();
     const zoekIdInput = byId("zoekId");
     if (zoekIdInput.checkValidity()) {
-        findById(zoekIdInput.value);
+        await findById(zoekIdInput.value);
     } else {
         toon("zoekIdFout");
         zoekIdInput.focus();
@@ -40,7 +40,7 @@ byId("bewaar").onclick = async function () {
     const nieuwePrijsInput = byId("nieuwePrijs");
     if (nieuwePrijsInput.checkValidity()) {
         verberg("nieuwePrijsFout");
-        updatePrijs(nieuwePrijsInput.value);
+        await updatePrijs(nieuwePrijsInput.value);
     } else {
         toon("nieuwePrijsFout");
         nieuwePrijsInput.focus();
